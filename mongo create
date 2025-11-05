@@ -1,0 +1,98 @@
+mongo dbs
+1. Connect to MongoDB
+bash
+# If running locally
+mongosh
+
+# Or with connection string
+mongosh "mongodb://localhost:27017"
+2. Create Database and Collections
+javascript
+// Switch to the usermanagement database
+use iotcore_usermanagement
+
+// Create collections (they will be empty initially)
+db.createCollection("users")
+db.createCollection("customers") 
+db.createCollection("sessions")
+
+// Verify collections were created
+show collections
+3. Create Indexes (Optional but Recommended)
+javascript
+// Index for users collection
+db.users.createIndex({ "email": 1 }, { unique: true })
+db.users.createIndex({ "customer_id": 1 })
+db.users.createIndex({ "is_deleted": 1 })
+db.users.createIndex({ "status": 1 })
+
+// Index for customers collection
+db.customers.createIndex({ "customer_id": 1 }, { unique: true })
+db.customers.createIndex({ "email": 1 }, { unique: true })
+db.customers.createIndex({ "is_deleted": 1 })
+
+// Index for sessions collection
+db.sessions.createIndex({ "user_id": 1 })
+db.sessions.createIndex({ "refresh_hash": 1 })
+db.sessions.createIndex({ "expires_at": 1 })
+db.sessions.createIndex({ "revoked": 1 })
+4. Verify Setup
+javascript
+// List all databases
+show dbs
+
+// Check database stats
+db.stats()
+
+// Check collection stats
+db.users.stats()
+db.customers.stats()
+db.sessions.stats()
+5. Full Script (All Commands Together)
+bash
+mongosh << 'EOF'
+use iotcore_usermanagement
+
+db.createCollection("users")
+db.createCollection("customers")
+db.createCollection("sessions")
+
+// Users indexes
+db.users.createIndex({ "email": 1 }, { unique: true })
+db.users.createIndex({ "customer_id": 1 })
+db.users.createIndex({ "is_deleted": 1 })
+db.users.createIndex({ "status": 1 })
+
+// Customers indexes
+db.customers.createIndex({ "customer_id": 1 }, { unique: true })
+db.customers.createIndex({ "email": 1 }, { unique: true })
+db.customers.createIndex({ "is_deleted": 1 })
+
+// Sessions indexes
+db.sessions.createIndex({ "user_id": 1 })
+db.sessions.createIndex({ "refresh_hash": 1 })
+db.sessions.createIndex({ "expires_at": 1 })
+db.sessions.createIndex({ "revoked": 1 })
+
+show collections
+print("Database setup complete!")
+EOF
+6. Alternative: Using mongo shell (legacy)
+bash
+mongo << 'EOF'
+use iotcore_usermanagement
+
+db.createCollection("users")
+db.createCollection("customers")
+db.createCollection("sessions")
+
+show collections
+exit
+EOF
+7. Verify from Command Line
+bash
+# Check if database exists
+mongosh --eval "show dbs"
+
+# Check collections in the database
+mongosh iotcore_usermanagement --eval "show collections"
