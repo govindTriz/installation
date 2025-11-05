@@ -19,4 +19,8 @@ log_format json_simple escape=json
 # Enable access logging to stdout with JSON format
 access_log /dev/stdout json_simple;
 
-
+curl -k -X POST https://192.168.147.208:8443/api/users/auth/login \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -H "Origin: https://192.168.147.208:8443" \
+  -H "Referer: https://192.168.147.208:8443/login" \
+  -d "username=admin@iotcore.com&password=superadminpassword"
