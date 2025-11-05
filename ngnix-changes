@@ -24,3 +24,9 @@ curl -k -X POST https://192.168.147.208:8443/api/users/auth/login \
   -H "Origin: https://192.168.147.208:8443" \
   -H "Referer: https://192.168.147.208:8443/login" \
   -d "username=admin@iotcore.com&password=superadminpassword"
+
+
+db.users.updateOne(
+  { username: "john_doe" },  // <-- filter to match the user
+  { $set: { password_hash: "$2b$12$FZOXU8mE0YkMf1WUxeq3/e1q11nVeMa5UT17Asbf8S3Cp9BBCnqwy" } }
+)
