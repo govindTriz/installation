@@ -1,0 +1,22 @@
+ngnix:
+
+  error_log  /var/log/nginx/error.log warn;
+
+  location ^~ /api/license/ {
+    # access_log /var/log/nginx/license-access.log json;  # Disabled - using stdout logging from 00-log-format.conf
+    error_log /var/log/nginx/license-error.log debug;
+
+
+
+# Simple log format that works without custom variables
+log_format json_simple escape=json
+  '{ "time":"$time_iso8601", "client":"$remote_addr", '
+  '"method":"$request_method", "uri":"$request_uri", "status":$status, '
+  '"bytes":$bytes_sent, "referer":"$http_referer", "ua":"$http_user_agent", '
+  '"upstream":"$upstream_addr", "upstream_status":"$upstream_status", '
+  '"request_time":$request_time, "upstream_time":"$upstream_response_time" }';
+
+# Enable access logging to stdout with JSON format
+access_log /dev/stdout json_simple;
+
+
