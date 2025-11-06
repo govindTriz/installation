@@ -42,5 +42,38 @@ done
 chmod +x grant_admin_access.sh
 ./grant_admin_access.sh
 
+#!/bin/bash
+# PostgreSQL Restore Script
+
+# ---------- CONFIGURATION ----------
+DUMP_DIR="/tmp/pg_dumps"    # folder containing .sql dumps
+PGUSER="postgres"
+# -----------------------------------
+
+if [ ! -d "$DUMP_DIR" ]; then
+  echo "❌ Dump directory $DUMP_DIR not found!"
+  exit 1
+fi
+
+cd "$DUMP_DIR"
+
+echo "🟩 Starting restore process on $(hostname)..."
+
+sudo -iu "$PGUSER" bash <<'INNER'
+DUMP_DIR="/tmp/pg_dumps"
+
+for file in $DUMP_DIR/*.sql; do
+  db=$(basename "$file" .sql)
+  echo "🔹 Restoring database: $db"
+
+  # Create the database if not exists
+  createdb "$db" 2>/dev/null || echo "(already exists, skipping create)"
+
+  # Restore the dump
+  psql -d "$db" -f "$file"
+done
+INNER
+
+echo "✅ All databases restored successfully!"
 
 
