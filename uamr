@@ -1,0 +1,8 @@
+{
+    "device_name": "UAMR-1",
+    "device_id": "03a226d0-6191-4a25-abfb-b4c3671080ce",
+    "endpoint_id": "mAr7Qapc",
+    "app_version": "b1e5efqf3m-v100",
+    "mqtt_broker": "10.122.72.153",
+    "mqtt_port": 8883
+}
