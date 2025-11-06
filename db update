@@ -6,6 +6,11 @@ sudo -u postgres psql -c "DROP DATABASE IF EXISTS devices;"
 sudo -u postgres psql -c "DROP DATABASE IF EXISTS missions;"
 sudo -u postgres psql -c "DROP DATABASE IF EXISTS traffic_management;"
 
+sudo -u postgres psql -t -c "SELECT datname FROM pg_database WHERE datname NOT IN ('postgres','template0','template1');" | \
+while read dbname; do
+  [ -n "$dbname" ] && echo "Dropping $dbname..." && sudo -u postgres psql -c "DROP DATABASE \"$dbname\";";
+done
+
 sudo -u postgres psql -c "\du"
 
 sudo -u postgres psql -c "CREATE ROLE admin WITH LOGIN PASSWORD 'password';"
