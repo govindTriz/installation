@@ -109,3 +109,10 @@ FROM scheduler_queue;
 -- ============================================================================
 -- End of Migration
 -- ============================================================================
+
+
+
+
+psql -h <your-host> -U <your-user> -d traffic_management
+
+\i /home/govindtriz22/FMS-deployment/traffic-management-service/database/migrations/create_scheduler_queue_table.sql
