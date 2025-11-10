@@ -11,7 +11,7 @@ Rebuild just that one service:
   docker compose -f docker-compose.prod.yml build traffic-management-service
 
 If you want it to automatically recreate the container:
-  docker compose up -d --build fms-traffic-management-service
+  docker compose -f docker-compose.prod.yml up -d --build traffic-management-service
 
 Check that it built correctly:
   docker images | grep fms-traffic-management-service
@@ -21,7 +21,6 @@ Tag it as stable (Once confirmed, tag the new image as stable):
 
 Save it:
   docker save -o /home/govind/FMS-backups/fms-traffic-management-service_stable.tar fms-traffic-management-service:stable && gzip /home/govind/FMS-backups/fms-traffic-management-service_stable.tar
-
 
 load it on server (On another machine, restore it like this):
   gzip -d fms-traffic-management-service_stable.tar.gz
