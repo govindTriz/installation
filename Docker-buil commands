@@ -8,7 +8,7 @@ Confirm:
   docker images | grep fms-traffic-management-service
 
 Rebuild just that one service:
-  docker compose build fms-traffic-management-service
+  docker compose -f docker-compose.prod.yml build traffic-management-service
 
 If you want it to automatically recreate the container:
   docker compose up -d --build fms-traffic-management-service
