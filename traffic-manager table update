@@ -1,0 +1,111 @@
+-- ============================================================================
+-- Scheduler Queue Table Migration
+-- ============================================================================
+-- Description: Creates the scheduler_queue table for managing device scheduler queues
+-- Date: 2024-11-09
+-- Author: Traffic Management Service
+-- ============================================================================
+
+-- Create scheduler_queue table
+CREATE TABLE IF NOT EXISTS scheduler_queue (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    scheduler_id VARCHAR(255) NOT NULL,
+    scheduler_name VARCHAR(255) NOT NULL,
+    scheduler_execution_id VARCHAR(255) NULL,
+    device_id VARCHAR(255) NOT NULL,
+    customer_id VARCHAR(255) NOT NULL,
+    deployment_id VARCHAR(255) NOT NULL,
+    zone_id VARCHAR(255) NOT NULL,
+    mission_ids JSONB NOT NULL,
+    scheduler_option JSONB NOT NULL,
+    status VARCHAR(50) NOT NULL DEFAULT 'queued',
+    priority VARCHAR(50) NOT NULL DEFAULT 'normal',
+    queue_position INTEGER NOT NULL,
+    queued_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    started_at TIMESTAMP NULL,
+    completed_at TIMESTAMP NULL,
+    error TEXT NULL,
+    metadata JSONB NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create indexes for performance
+CREATE INDEX IF NOT EXISTS idx_scheduler_queue_device_status 
+    ON scheduler_queue(device_id, status);
+
+CREATE INDEX IF NOT EXISTS idx_scheduler_queue_device_position 
+    ON scheduler_queue(device_id, queue_position);
+
+CREATE INDEX IF NOT EXISTS idx_scheduler_queue_scheduler_id 
+    ON scheduler_queue(scheduler_id);
+
+CREATE INDEX IF NOT EXISTS idx_scheduler_queue_scheduler_execution_id 
+    ON scheduler_queue(scheduler_execution_id);
+
+CREATE INDEX IF NOT EXISTS idx_scheduler_queue_customer_id 
+    ON scheduler_queue(customer_id);
+
+CREATE INDEX IF NOT EXISTS idx_scheduler_queue_zone_id 
+    ON scheduler_queue(zone_id);
+
+-- Add check constraints
+ALTER TABLE scheduler_queue 
+    ADD CONSTRAINT chk_scheduler_queue_status 
+    CHECK (status IN ('queued', 'running', 'completed', 'cancelled', 'failed'));
+
+ALTER TABLE scheduler_queue 
+    ADD CONSTRAINT chk_scheduler_queue_priority 
+    CHECK (priority IN ('high', 'normal', 'low'));
+
+ALTER TABLE scheduler_queue 
+    ADD CONSTRAINT chk_scheduler_queue_position 
+    CHECK (queue_position >= 0);
+
+-- Create trigger to update updated_at timestamp
+CREATE OR REPLACE FUNCTION update_scheduler_queue_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_scheduler_queue_updated_at
+    BEFORE UPDATE ON scheduler_queue
+    FOR EACH ROW
+    EXECUTE FUNCTION update_scheduler_queue_updated_at();
+
+-- Add comments for documentation
+COMMENT ON TABLE scheduler_queue IS 'Manages scheduler execution queue per device with automatic queue processing';
+COMMENT ON COLUMN scheduler_queue.id IS 'Unique identifier for queue entry';
+COMMENT ON COLUMN scheduler_queue.scheduler_id IS 'Reference to scheduler definition';
+COMMENT ON COLUMN scheduler_queue.scheduler_name IS 'Name of the scheduler for display';
+COMMENT ON COLUMN scheduler_queue.scheduler_execution_id IS 'Reference to SchedulerExecution when running';
+COMMENT ON COLUMN scheduler_queue.device_id IS 'Device assigned to execute scheduler';
+COMMENT ON COLUMN scheduler_queue.customer_id IS 'Customer who owns the scheduler';
+COMMENT ON COLUMN scheduler_queue.deployment_id IS 'Deployment context';
+COMMENT ON COLUMN scheduler_queue.zone_id IS 'Zone where scheduler executes';
+COMMENT ON COLUMN scheduler_queue.mission_ids IS 'Array of mission IDs in scheduler';
+COMMENT ON COLUMN scheduler_queue.scheduler_option IS 'Scheduler configuration (type, loopCounter, etc.)';
+COMMENT ON COLUMN scheduler_queue.status IS 'Current status: queued, running, completed, cancelled, failed';
+COMMENT ON COLUMN scheduler_queue.priority IS 'Queue priority: high, normal, low';
+COMMENT ON COLUMN scheduler_queue.queue_position IS 'Position in queue (0 = running, 1+ = queued)';
+COMMENT ON COLUMN scheduler_queue.queued_at IS 'When scheduler was added to queue';
+COMMENT ON COLUMN scheduler_queue.started_at IS 'When scheduler execution started';
+COMMENT ON COLUMN scheduler_queue.completed_at IS 'When scheduler execution completed/cancelled/failed';
+COMMENT ON COLUMN scheduler_queue.error IS 'Error message if status is failed';
+COMMENT ON COLUMN scheduler_queue.metadata IS 'Additional metadata for analytics';
+
+-- Grant permissions (adjust role name as needed)
+-- GRANT SELECT, INSERT, UPDATE, DELETE ON scheduler_queue TO traffic_management_user;
+
+-- Verification query
+SELECT 
+    'scheduler_queue table created successfully' AS message,
+    COUNT(*) AS initial_count
+FROM scheduler_queue;
+
+-- ============================================================================
+-- End of Migration
+-- ============================================================================
