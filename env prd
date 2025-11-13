@@ -1,0 +1,12 @@
+
+# ============================================
+# InfluxDB Configuration
+# ============================================
+# InfluxDB URL - Points to your server's InfluxDB instance
+INFLUX_URL=http://10.122.72.153:8086
+
+# InfluxDB authentication token
+INFLUX_TOKEN=tovrpN8MZ2RbzDDViK5WEGS77u7VqtAQvVEuEQ8RxHig8q373j3sPXkLOqfmRgrrpwWj-V8Uaj60qzlPAvaSFA==
+
+# InfluxDB organization name
+INFLUX_ORG=trizlabz
