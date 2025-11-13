@@ -153,3 +153,9 @@ Or show how to test from your Windows/Linux client with an influx CLI command.
 Which of those would you like next?
 
 ChatGPT can make mistakes. Check important info. See Cooki
+
+
+influx query '
+import "influxdata/influxdb/schema"
+schema.fieldKeys(bucket: "your_bucket_name")'
+
