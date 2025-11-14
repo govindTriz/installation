@@ -1,0 +1,6 @@
+ALTER TABLE plants 
+ADD COLUMN plant_image VARCHAR,
+ADD COLUMN pixel_per_meter DOUBLE PRECISION;
+
+
+ALTER TABLE zones ADD COLUMN starting_point JSONB;
