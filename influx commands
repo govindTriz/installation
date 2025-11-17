@@ -1,0 +1,6 @@
+from(bucket: "device_core")
+  |> range(start: -30d) // Adjust the time range as needed
+  |> filter(fn: (r) => r._measurement == "your-measurement-name")
+  |> keep(columns: ["_field"])
+  |> distinct(column: "_field")
+  |> yield(name: "fields")
