@@ -4,3 +4,12 @@ from(bucket: "device_core")
   |> keep(columns: ["_field"])
   |> distinct(column: "_field")
   |> yield(name: "fields")
+
+
+influx query '
+from(bucket: "device_core")
+  |> range(start: -30d)
+  |> keep(columns: ["_measurement"])
+  |> group()
+  |> distinct(column: "_measurement")
+'
