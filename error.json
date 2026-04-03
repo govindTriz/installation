@@ -1,0 +1,108 @@
+{
+  "error_codes": {
+    "low_battery": "CBA01",
+    "low_fresh_water": "CFW01",
+    "full_waste_water": "CWT01",
+    "localization_lost": "CLL01",
+
+    "obs_det_node_crashed": "COD01",
+    "nav_server_node_crashed": "CNS01",
+    "amcl_extrapolator_node_crashed": "CAE01",
+    "modbus_not_connected": "CMN01",
+    "esp_not_connected": "CESP01",
+    "state_manager_node_crashed": "CSMN01",
+
+    "no_path_found": "CNP01",
+    "invalid_start": "CNP02",
+    "invalid_goal": "CNP03",
+    "inactive_due_to_wall_nearby": "CNP04",
+    "infeasible_path": "CNP05",
+    "too_close_end_to_plan": "CNP06",
+    "obs_timeout": "CNP07",
+    "pose_out_of_bounds": "CNP08",
+    "obs_unknown": "CNP09",
+
+    "no_space_turn": "OST01",
+    "estop_press": "OES01",
+    "pause_button_press": "OPB01",
+    "left_motor_trac_fault": "OLMT01",
+    "right_motor_trac_fault": "ORMT01",
+
+    "sensor_failure": "SST01",
+    "obstacle_detected": "SOB01",
+
+    "not_start_point": "OSP01",
+    "task_failed": "OTF01",
+    "no_map_found": "CNM01",
+    "low_space_on_disk": "CLS01",
+    "sim_mode_on": "OSM01",
+    "model_mismatch": "CMM01",
+
+    "no_line_to_follow": "CNL01",
+    "two_lines_without_marker": "CTL01",
+
+    "not_connected_to_FM_server": "CNC01",
+    "stop_cmd_from_FM_server": "CSC01",
+    "first_tag_not_detected": "CFT01",
+
+    "external_sensor_stop": "SES01",
+
+    "joystick_x_mode": "CXM01",
+
+    "docking_failure": "CDF01",
+    "dock_not_powered": "CDNP01",
+    "go_to_dock_failed": "CGTD01",
+    "undocking_failed": "CUD01",
+    "mission_resume_failed": "CMS01",
+    "estop_pressed_on_dock": "CED01",
+    "unknown_dock_exception": "CDE01",
+    "no_communication_from_dock": "CNCD01",
+    "estop_pressed_while_docked_and_docking": "CEWD01",
+    "estop_pressed_while_undocked_and_undocking": "CEWU01",
+    "retry_go_to_dock": "CRGD01",
+
+    "am_path_planner_timeout": "MPPT01",
+    "am_failed_to_solve_path": "MFSP01",
+    "am_sensor_fault_bottom_scan": "MSF01",
+    "am_sensor_fault_cliff_scan": "MSF02",
+    "am_sensor_fault_back_scan": "MSF03",
+    "am_sensor_fault_top_2d": "MSF04",
+    "am_sensor_fault_camera": "MSF05",
+    "am_sensor_fault_3d_lidar": "MSF06",
+    "am_navigation_stack_fault": "MNSF01",
+    "am_tf_error": "MTF01",
+    "am_obstacle_in_safetyzone": "MOSF01",
+    "am_invalid_goal": "MIG01",
+    "am_map_error": "MME01",
+    "am_costmap_error": "MCME01",
+    "am_invalid_start": "MIS01",
+
+    "sick_safety_forward": "SSSF01",
+    "sick_safety_reverse": "SSSR01",
+    "sick_safety_disabled": "SSSD01"
+  },
+  "warning_codes": {
+    "vir_wall_warn": "OVW01",
+    "waste_water_warning": "CWT02",
+    "docking_cancelled": "CDC00",
+    "undocking_cancelled": "CUDC00",
+
+    "am_navigation_paused": "MNP01",
+
+    "start_stack_on_boot": "OSTB01",
+    "min_battery_percent_for_operation": "OMBP01",
+    "loop_mode_enabled": "OLM01",
+    "step_detection_enabled": "OSD01",
+    "obstacle_avoidance_param_incorrect": "OOAS01",
+    "fresh_water_sensor_param_incorrect": "OFWS01",
+    "vacuum_limit_switch_param_incorrect": "OVLS01",
+    "second_vacuum_limit_switch_param_incorrect": "OSLS01",
+
+    "lidar_safety_profile_not_default": "SLSP01",
+    "camera_safety_profile_not_default": "SCSP01"
+  },
+  "parameters": {
+    "loop_sleep_rate": 100,
+    "time_threshold_for_node_crash": 3.0
+  }
+}

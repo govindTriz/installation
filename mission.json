@@ -1,0 +1,220 @@
+{
+  "events": {
+    "Wait": {
+      "attributes": {
+        "duration": {
+          "type": "number",
+          "readOnly": false,
+          "description": "Duration in milliseconds"
+        },
+        "wait_topic_info": {
+          "type": "string",
+          "default": "",
+          "readOnly": false,
+          "description": "Info to be published on wait topic"
+        },
+        "trigger_service_name": {
+          "type": "string",
+          "default": "wait_trigger",
+          "readOnly": true,
+          "description": "Name of the trigger service"
+        }
+      },
+      "displayName": "Wait"
+    },
+    "GoToZone": {
+      "attributes": {
+        "direction": {
+          "type": "enum",
+          "options": ["forward", "reverse"],
+          "readOnly": false,
+          "description": "Direction"
+        },
+        "zone_to_go": {
+          "type": "enum",
+          "readOnly": false,
+          "description": "Zone"
+        },
+        "align_to_goal": {
+          "type": "string",
+          "readOnly": false,
+          "description": "Align to Goal"
+        },
+        "sensor_profile": {
+          "type": "string",
+          "readOnly": false,
+          "description": "SensorProfile"
+        }
+      },
+      "displayName": "Go to Zone"
+    },
+    "DockRobot": {
+      "attributes": {},
+      "displayName": "Docks Robot"
+    },
+    "MoveRobot": {
+      "attributes": {
+        "direction": {
+          "type": "enum",
+          "options": ["forward", "reverse"],
+          "readOnly": false,
+          "description": "Direction"
+        },
+        "cmd_vel_topic": {
+          "type": "string",
+          "default": "controller_cmd_vel",
+          "readOnly": true,
+          "description": "Command velocity topic"
+        },
+        "movement_speed": {
+          "type": "number",
+          "readOnly": false,
+          "description": "Movement speed in m/s"
+        },
+        "movement_distance": {
+          "type": "number",
+          "readOnly": false,
+          "description": "Movement distance in meters"
+        }
+      },
+      "displayName": "Move Robot"
+    },
+    "LineFollow": {
+      "attributes": {
+        "end_tag": {
+          "type": "number",
+          "readOnly": false,
+          "description": "End tag number"
+        },
+        "direction": {
+          "type": "enum",
+          "options": ["forward", "reverse"],
+          "readOnly": false,
+          "description": "Direction"
+        },
+        "safety_tag": {
+          "type": "number",
+          "readOnly": false,
+          "description": "Safety tag number"
+        },
+        "linear_speed": {
+          "type": "number",
+          "readOnly": false,
+          "description": "LinearSpeed"
+        },
+        "sensor_profile": {
+          "type": "string",
+          "readOnly": false,
+          "description": "SensorProfile"
+        },
+        "relative_distance_to_tag": {
+          "type": "number",
+          "readOnly": false,
+          "description": "Relative distance to tag (-1 to 1)"
+        },
+        "end_on_external_sensor_stop": {
+          "type": "boolean",
+          "default": false,
+          "readOnly": false,
+          "description": "End on external sensor stop"
+        }
+      },
+      "displayName": "Line Follow"
+    },
+    "MoveActuator": {
+      "attributes": {
+        "move_time": {
+          "type": "number",
+          "readOnly": false,
+          "description": "Move time in milliseconds"
+        },
+        "actuator_type": {
+          "type": "enum",
+          "options": ["linear", "lifter"],
+          "readOnly": false,
+          "description": "Actuator Type"
+        },
+        "move_direction": {
+          "type": "enum",
+          "options": ["up", "down"],
+          "readOnly": false,
+          "description": "Move Direction"
+        },
+        "actuator_number": {
+          "type": "enum",
+          "options": ["0", "1", "2", "3", "4"],
+          "readOnly": false,
+          "description": "Actuator Number"
+        }
+      },
+      "displayName": "Move Actuators"
+    },
+    "PalletLifter": {
+      "attributes": {
+        "pallet_position": {
+          "type": "enum",
+          "options": ["up", "down"],
+          "readOnly": false,
+          "description": "Move Direction"
+        }
+      },
+      "displayName": "Lift Pallet"
+    },
+    "RotateOnSpot": {
+      "attributes": {
+        "direction": {
+          "type": "enum",
+          "options": ["clockwise", "anticlockwise"],
+          "readOnly": false,
+          "description": "Direction"
+        },
+        "rotate_angle": {
+          "type": "number",
+          "readOnly": false,
+          "description": "Rotate angle in degrees"
+        },
+        "angular_speed": {
+          "type": "number",
+          "readOnly": false,
+          "description": "Angular speed in r/s"
+        }
+      },
+      "displayName": "Rotate on Spot"
+    },
+    "ActuateGripper": {
+      "attributes": {
+        "position": {
+          "type": "string",
+          "readOnly": false,
+          "description": "Position of Gripper"
+        }
+      },
+      "displayName": "Actuates Gripper"
+    },
+    "TriggerMoveArm": {
+      "attributes": {
+        "operation": {
+          "type": "string",
+          "readOnly": false,
+          "description": "operation"
+        },
+        "machine_id": {
+          "type": "string",
+          "readOnly": false,
+          "description": "Machine ID"
+        }
+      },
+      "displayName": "Trigger Move Arm"
+    },
+    "ChangeSensorProfile": {
+      "attributes": {
+        "profile_name": {
+          "type": "string",
+          "readOnly": false,
+          "description": "Sensor profile"
+        }
+      },
+      "displayName": "Change Sensor Profile"
+    }
+  }
+}
